@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Form Interaktif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        #Content {
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Tampilan Mulai Minimalis */
+        #emojiIntro {
+            font-size: 80px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #ff6f61;
+            transition: transform 0.3s ease;
+        }
+
+        #emojiIntro:hover {
+            transform: scale(1.1);
+        }
+
+        #introText {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Stiker Lucu */
+        .sticker {
+            position: absolute;
+            width: 80px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .sticker:nth-child(1) {
+            top: 10%;
+            left: 10%;
+        }
+
+        .sticker:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .sticker:nth-child(3) {
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .sticker:nth-child(4) {
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        #questionContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .question label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ff6f61;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #ff4c39;
+        }
+
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff4c39;
+        }
+    </style>
+</head>
+<body>
+    <!-- Stiker Lucu dari WhatsApp -->
+    <img src="https://em-content.zobj.net/thumbs/240/whatsapp/326/smiling-face-with-hearts_1f970.png" alt="Sticker 1" class="sticker">
+    <img src="https://em-content.zobj.net/thumbs/240/whatsapp/326/face-with-tears-of-joy_1f602.png" alt="Sticker 2" class="sticker">
+    <img src="https://em-content.zobj.net/thumbs/240/whatsapp/326/party-popper_1f389.png" alt="Sticker 3" class="sticker">
+    <img src="https://em-content.zobj.net/thumbs/240/whatsapp/326/red-heart_2764-fe0f.png" alt="Sticker 4" class="sticker">
+
+    <div id="Content">
+        <!-- Bagian Mulai -->
+        <div id="emojiIntro" onclick="showQuestions()">💡</div>
+        <p id="introText">Klik ikon di atas untuk memulai!</p>
+
+        <!-- Form Pertanyaan -->
+        <div id="questionContainer">
+            <div class="question">
+                <label for="nama">1. Nama kamu siapa?</label>
+                <input type="text" id="nama" placeholder="Nama kamu">
+            </div>
+            <div class="question">
+                <label for="tglLahir">2. Kapan tanggal lahir kamu?</label>
+                <input type="date" id="tglLahir">
+            </div>
+            <div class="question">
+                <label for="hobi">3. Hobi kamu apa?</label>
+                <input type="text" id="hobi" placeholder="Contoh: Mendengarkan Musik">
+            </div>
+            <div class="question">
+                <label for="warnaFavorit">4. Warna favorit kamu apa?</label>
+                <input type="text" id="warnaFavorit" placeholder="Contoh: Pink">
+            </div>
+            <div class="question">
+                <label for="seberapaSayang">5. Seberapa sayang kamu sama teman dekat?</label>
+                <input type="text" id="seberapaSayang" placeholder="Tuliskan Dengan Kata-Kata Manis">
+            </div>
+            <div class="question">
+                <label for="kenanganFavorit">6. Apa yang kamu inginkan?</label>
+                <input type="text" id="kenanganFavorit" placeholder="Contoh: Sesuai hati">
+            </div>
+            <div class="question">
+                <label for="pesan">7. Apa pesan-pesan kamu buat teman dekat?</label>
+                <input type="text" id="pesan" placeholder="Pesan kamu">
+            </div>
+            <button onclick="submitForm()">Kirim</button>
+        </div>
+    </div>
+
+    <!-- Audio -->
+    <audio id="backgroundAudio" src="https://feeldreams.github.io/audio/nightchanges.mp3" preload="auto"></audio>
+
+    <script>
+        function showQuestions() {
+            // Putar audio
+            const audio = document.getElementById("backgroundAudio");
+            audio.play();
+
+            // Sembunyikan intro
+            document.getElementById("emojiIntro").style.display = "none";
+            document.getElementById("introText").style.display = "none";
+
+            // Tampilkan pertanyaan
+            document.getElementById("questionContainer").style.display = "block";
+        }
+
+        function submitForm() {
+            // Ambil data dari input
+            const nama = document.getElementById("nama").value;
+            const tglLahir = document.getElementById("tglLahir").value;
+            const hobi = document.getElementById("hobi").value;
+            const warnaFavorit = document.getElementById("warnaFavorit").value;
+            const seberapaSayang = document.getElementById("seberapaSayang").value;
+            const kenanganFavorit = document.getElementById("kenanganFavorit").value;
+            const pesan = document.getElementById("pesan").value;
+
+            // Validasi input
+            if (nama && tglLahir && hobi && warnaFavorit && seberapaSayang && kenanganFavorit && pesan) {
+                Swal.fire({
+                    title: 'Terima Kasih! Jangan lupa kirim ss jawaban mu ke NightBot',
+                    html: `
+                        <p>Nama: ${nama}</p>
+                        <p>Tanggal Lahir: ${tglLahir}</p>
+                        <p>Hobi: ${hobi}</p>
+                        <p>Warna Favorit: ${warnaFavorit}</p>
+                        <p>Seberapa Sayang: ${seberapaSayang}</p>
+                        <p>Keinginan: ${kenanganFavorit}</p>
+                        <p>Pesan: ${pesan}</p>
+                    `,
+                    icon: 'success',
+                    confirmButtonText: 'Oke!'
+                });
+            } else {
+                Swal.fire('Oops!', 'Semua pertanyaan harus diisi!', 'warning');
+            }
+        }
+    </script>
+</body>
+</html>
